@@ -1,7 +1,11 @@
 <template>
   <div>
+    <q-banner inline-actions       
+     class="text-white bg-orange-4 text-center">
+     <span class="text-h6">Tarefas</span>      
+    </q-banner>
     <!-- Existe alguma chave -->
-    <q-list padding separator>
+    <q-list separator>
        <q-item 
               v-for="(task, key) in tasksNaoFinalizadas"
               :key="key"
@@ -12,8 +16,7 @@
               > 
         <q-item-section side top>
           <q-checkbox 
-          :value="task.completed"
-         
+          :value="task.completed"         
            />
         </q-item-section>
 

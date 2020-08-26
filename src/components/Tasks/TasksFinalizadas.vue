@@ -1,7 +1,12 @@
 <template>
   <div>
+  	<q-banner inline-actions 
+  		v-if="Object.keys(tasksFinalizadas).length"
+  		class="text-white bg-green-4 text-center">
+      <span class="text-h6">Finalizadas</span>      
+    </q-banner>
     <!-- Existe alguma chave -->
-     <q-list padding separator>
+     <q-list  separator>
 	    <q-item 
 	        v-for="(task, key) in tasksFinalizadas"
 	        :key="key"

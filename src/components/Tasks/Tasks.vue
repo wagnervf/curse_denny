@@ -1,9 +1,13 @@
 <template>
   <div>
-      <tasksNaoFinalizadas 
+
+      <noTasks v-if="!Object.keys(tasksNaoFinalizadas).length" />
+
+      <tasksNaoFinalizadas
+         v-else 
         :tasksNaoFinalizadas="tasksNaoFinalizadas" />
 
-      <hr>
+     <br>
 
       <tasksFinalizadas 
         :tasksFinalizadas="tasksFinalizadas"/>
@@ -15,11 +19,13 @@
   import { mapGetters } from 'vuex' 
   import tasksNaoFinalizadas from './tasksNaoFinalizadas'
   import tasksFinalizadas from './tasksFinalizadas'
+  import noTasks from './noTasks'
 
 export default {
    components: {
     tasksNaoFinalizadas,
-    tasksFinalizadas
+    tasksFinalizadas,
+    noTasks
    },
 
   data () {

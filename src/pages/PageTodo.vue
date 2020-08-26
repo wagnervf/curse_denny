@@ -35,7 +35,13 @@ export default {
   },
 
   mounted () {
-
+    // Utilizando variáveis globais
+    // O comando é enviado pelo componente noTasks.vue
+    // @click="$root.$emit('showAddTask')"/>
+    // Aquie é a propiedade $on verifica e utiliza a variavel glocal
+    this.$root.$on('showAddTask', () =>{
+      this.showAddTask = true
+    })
   },
 
   computed: {
