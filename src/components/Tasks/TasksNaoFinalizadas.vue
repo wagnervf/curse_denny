@@ -7,13 +7,13 @@
     <!-- Existe alguma chave -->
     <q-list separator>
        <q-item 
-              v-for="(task, key) in tasksNaoFinalizadas"
-              :key="key"
-              clickable
-              v-ripple
-              :class="!task.completed ? 'bg-light-blue-1' : 'bg-green-1'"
-              @click="updateTask({id: key, updates: { completed: !task.completed } })"
-              > 
+          v-for="(task, key) in tasksNaoFinalizadas"
+          :key="key"
+          clickable
+          v-ripple
+          :class="!task.completed ? 'bg-light-blue-1' : 'bg-green-1'"
+          @click="updateTask({id: key, updates: { completed: !task.completed } })"
+          > 
         <q-item-section side top>
           <q-checkbox 
           :value="task.completed"         
@@ -80,7 +80,7 @@
         <q-dialog v-model="showEditTask">
           <ModalEditTask
             :id="key"
-            :task="task" 
+            :task="task"
             @fechando="showEditTask = true" 
             />
         </q-dialog>
@@ -91,10 +91,16 @@
 
 <script>
   import { mapActions } from 'vuex'
+
   import ModalEditTask from 'components/Modals/EditTask.vue'
+
 export default {
 
   props: ['task', 'id', 'tasksNaoFinalizadas'],
+
+  components: {
+    ModalEditTask
+  },
 
   data () {
      return {

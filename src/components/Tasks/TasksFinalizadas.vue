@@ -76,10 +76,12 @@
 
 <script>
   import { mapActions } from 'vuex'
-  import ModalEditTask from 'components/Modals/EditTask.vue'
+
+
 export default {
 
   props: ['task', 'id', 'tasksFinalizadas'],
+
 
   data () {
     return {

@@ -6,7 +6,7 @@ import { uid } from 'quasar'
 const state = {
 	 tasks: {
 	    'ID1': {
-			name: 'Shop',
+			name: 'All',
 			completed: false,
 			dueDate: '2019/03/12',
 			dueTime: '18:30'
@@ -25,7 +25,10 @@ const state = {
 			dueDate: '2019/01/10',
 			dueTime: '10:30'
 	    }
-	 }
+	 },
+
+	 search: '',
+	 sort: 'name'
 }
 
 const mutations = {
@@ -48,7 +51,16 @@ const mutations = {
 
 	ADD_TASK(state, payload){
 		Vue.set(state.tasks, payload.id, payload.task)
+	},
+
+	SET_SEARCH(state, value){
+		state.search = value
+	},
+
+	SET_SORT(state, value){
+		state.sort = value
 	}
+
 }
 
 const actions = {
@@ -72,37 +84,93 @@ const actions = {
 		}
 
 		commit('ADD_TASK', payload)
+	},
+
+	setSearch({ commit }, value) {
+		commit('SET_SEARCH', value)
+	},
+
+	setSort({ commit }, value) {
+		commit('SET_SORT', value)
 	}
 
 }
 
 const getters = {
+	// Ordenacao das tarefas
+
+	tasksSorted: (state) => {
+		let tasksSorted = {}
+		let keysOrdered = Object.keys(state.tasks)
+
+		keysOrdered.sort((a,b) => {
+
+			let taskA = state.tasks[a][state.sort].toLowerCase()
+			let taskB = state.tasks[b][state.sort].toLowerCase()
+
+				if( taskA > taskB ) return 1
+					else if (taskA < taskB) return -1
+						else return 0
+		})
+
+		keysOrdered.forEach((key) =>{
+			tasksSorted[key] = state.tasks[key]
+		})
+
+		return tasksSorted
+	},
+
+
+
+	//Filtrando o objeto
+	tasksFiltered: (state, getters) => {
+		let tasksSorted = getters.tasksSorted
+		let tasksFiltered = {}
+		
+		if(state.search){
+			Object.keys(tasksSorted).forEach(function(key) {
+				let task = tasksSorted[key]
+				
+				if(task.name.toLowerCase().includes(state.search.toLowerCase())) {
+					tasksFiltered[key] = task
+				}
+			})
+			return tasksFiltered
+		}
+			return tasksSorted
+	},
+
+	tasksNaoFinalizadas: (state, getters) => {
+		//Recebendo os valores filtrados
+		let tasksFiltered = getters.tasksFiltered
+		let tasks = {}
+		//Object.keys() retorna um array cujo os elementos são strings correspondentes  enumerável encontrada diretamento sobre o objeto. 
+		Object.keys(tasksFiltered).forEach(function(key) {
+				//Retorna apenas as tarefas não completadas
+				if(!tasksFiltered[key].completed){	
+						tasks[key] = state.tasks[key]
+				}
+		})
+		return tasks
+	},
+
+	tasksFinalizadas: (state, getters) => {
+		//Recebendo os valores filtrados
+		let tasksFiltered = getters.tasksFiltered
+		let tasks = {}
+		//Object.keys() retorna um array cujo os elementos são strings correspondentes  enumerável encontrada diretamento sobre o objeto. 
+		Object.keys(tasksFiltered).forEach(function(key) {
+				//Retorna apenas as tarefas não completadas
+				if(tasksFiltered[key].completed){	
+						tasks[key] = state.tasks[key]
+				}
+		})
+		return tasks
+	},
+
+
 	tasks: (state) => {
 		return state.tasks
-	},
-
-	tasksNaoFinalizadas: (state) => {
-		let tasks = {}
-		//Object.keys() retorna um array cujo os elementos são strings correspondentes  enumerável encontrada diretamento sobre o objeto. 
-		Object.keys(state.tasks).forEach(function(key) {
-				//Retorna apenas as tarefas não completadas
-				if(!state.tasks[key].completed){	
-						tasks[key] = state.tasks[key]
-				}
-		})
-		return tasks
-	},
-
-	tasksFinalizadas: (state) => {
-		let tasks = {}
-		//Object.keys() retorna um array cujo os elementos são strings correspondentes  enumerável encontrada diretamento sobre o objeto. 
-		Object.keys(state.tasks).forEach(function(key) {
-				//Retorna apenas as tarefas não completadas
-				if(state.tasks[key].completed){	
-						tasks[key] = state.tasks[key]
-				}
-		})
-		return tasks
 	}
 
 }

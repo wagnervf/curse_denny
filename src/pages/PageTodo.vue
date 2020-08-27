@@ -1,5 +1,10 @@
 <template>
   <q-page class="q-pa-md">
+
+   <div class="row q-mb-lg">
+      <Search />
+      <Sort />
+   </div>
    
     <Tasks />
 
@@ -25,7 +30,9 @@
 export default {
   components: {
     'Tasks': require('../components/Tasks/Tasks.vue').default,
-    'add-task': require('../components/Modals/AddTask.vue').default
+    'add-task': require('../components/Modals/AddTask.vue').default,
+    'Search': require('../components/Tools/Search').default,
+    'Sort': require('../components/Tools/Sort').default
   },
 
   data () {
