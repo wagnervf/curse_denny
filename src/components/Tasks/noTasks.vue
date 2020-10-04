@@ -1,4 +1,7 @@
 <template>
+ <transition appear
+  enter-active-class="animated zoomIn"
+  leave-active-class="animated zoomOut">
 	 <q-banner class="bg-grey-3">
       <template v-slot:avatar>
         <q-icon name="check" color="primary" />
@@ -13,4 +16,5 @@
       </template>
       <!-- Usando variável global para enviar comando -->
     </q-banner>
+</transition>
 </template>

@@ -39,9 +39,6 @@
 		      <q-time 
 		      	:value="DueTime"
 		      	@input="$emit('update:DueTime', $event)"
-
-
-
 		      />
 		    </q-popup-proxy>
 		  </q-icon>

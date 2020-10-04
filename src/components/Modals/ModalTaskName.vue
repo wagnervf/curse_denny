@@ -11,28 +11,22 @@
 		ref="name"
 		autofocus
 		clearable	
+
 		v-seleciona-tudo
 		/>
+    <!-- v-seleciona-tudo -->
+    <!-- Directives selecionar todos os dados qndo abrir input -->
 	</div>
 </template>
 
 <script>	
+  import { selecionaTudo } from 'src/directives/directives-all'
   export default {
    props: ['name'],
 
    //qndo abrir o modal o texto do nome da tarefa virá selecionado.
    directives: {
-   	selecionaTudo: {
-   		inserted(el) {
-   			let input = el.querySelector('.q-field__native')
-
-   			input.addEventListener('focus', () =>{
-   					if(input.value.length){
-   						input.select()
-   					}
-   			})
-   		}
-   	}
+    selecionaTudo
    }
 
   }

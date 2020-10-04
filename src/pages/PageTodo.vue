@@ -1,26 +1,35 @@
 <template>
-  <q-page class="q-pa-md">
+  <q-page>
 
-   <div class="row q-mb-lg">
-      <Search />
-      <Sort />
-   </div>
-   
-    <Tasks />
+    <div class="q-pa-md absolute full-width full-height column">
+      
+      <div class="row q-mb-lg">
+        <Search />
+        <Sort />
+      </div>
 
-     <div class="absolute-bottom text-center q-mb-lg">
-       <q-btn
-      round
-      color="primary"
-      size="24px"
-      icon="add"
-      @click="showAddTask = true"
-    />
-     </div>   
-   
-    <q-dialog v-model="showAddTask">
-      <add-task @fechando="showAddTask = false" />
-    </q-dialog>
+      <q-scroll-area class="q-scroll-task">
+          <Tasks />
+      </q-scroll-area>
+
+      <div class="absolute-bottom text-center q-mb-lg no-pointer-events">
+        <q-btn
+        round
+        color="primary"
+        size="24px"
+        icon="add"
+        @click="showAddTask = true"
+        class="all-pointer-events"
+        />
+      </div>   
+
+      <q-dialog v-model="showAddTask">
+          <add-task @fechando="showAddTask = false" />
+      </q-dialog>
+
+    </div>
+
+
 
   </q-page>
 </template>
@@ -70,4 +79,8 @@ export default {
 </script>
 
 <style scoped>
+  .q-scroll-task {
+    display: flex;
+    flex-grow: 1;
+  }
 </style>

@@ -4,13 +4,13 @@
   leave-active-class="animated zoomOut absolute-top">
     <div>
       <q-banner inline-actions       
-       class="text-white bg-orange-4 text-center">
-       <span class="text-h6">Tarefas</span>      
+       class="text-white bg-blue-4 text-center">
+       <span class="text-h6">All Tarefas</span>      
       </q-banner>
       <!-- Existe alguma chave -->
       <q-list separator>
          <q-item 
-            v-for="(task, key) in tasksNaoFinalizadas"
+            v-for="(task, key) in allTasks"
             :key="key"
             clickable
             v-ripple
@@ -114,7 +114,7 @@
 export default {
   mixins: [mixinDelete],
 
-  props: ['task', 'id', 'tasksNaoFinalizadas'],
+  props: ['task', 'id', 'allTasks'],
 
   components: {
     ModalEditTask

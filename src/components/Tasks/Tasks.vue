@@ -1,8 +1,5 @@
 <template>
   <div>
-
-      <noTasks v-if="!Object.keys(tasksNaoFinalizadas).length && !search" />
-
       <q-banner 
         v-if="
         !Object.keys(tasksNaoFinalizadas).length && 
@@ -12,14 +9,32 @@
           Nenhum resultado encontrado!          
        </q-banner>
 
-      <tasksNaoFinalizadas
-         v-if="Object.keys(tasksNaoFinalizadas).length"
-        :tasksNaoFinalizadas="tasksNaoFinalizadas" />
+      
+        <noTasks v-if="!Object.keys(tasksNaoFinalizadas).length && !search" />
 
-     <br>
+        <div v-if="!configList">
+          <tasksNaoFinalizadas
+           v-if="Object.keys(tasksNaoFinalizadas).length"
+          :tasksNaoFinalizadas="tasksNaoFinalizadas"
+          class="q-pb-lg" />
 
-      <tasksFinalizadas 
-        :tasksFinalizadas="tasksFinalizadas"/>
+          <br>
+        
+          <tasksFinalizadas 
+            :tasksFinalizadas="tasksFinalizadas"/>
+          </transition>
+        </div>
+
+        <div v-else>
+
+          <allTasks 
+           :allTasks="allTasks"
+          >
+            
+          </allTasks>
+        </div>
+
+
   </div>
 </template>
 
@@ -29,12 +44,14 @@
   import tasksNaoFinalizadas from './tasksNaoFinalizadas'
   import tasksFinalizadas from './tasksFinalizadas'
   import noTasks from './noTasks'
+  import allTasks from './AllTasks'
 
 export default {
    components: {
     tasksNaoFinalizadas,
     tasksFinalizadas,
-    noTasks
+    noTasks,
+    allTasks
    },
 
   data () {
@@ -42,11 +59,24 @@ export default {
     }
   },
 
+ mounted () {
+  this.configList
+ },
+
+
   computed: {
-    ...mapGetters('tasks', ['tasksNaoFinalizadas', 'tasksFinalizadas']),
+    ...mapGetters('tasks', ['tasksNaoFinalizadas', 'tasksFinalizadas', 'allTasks']),
+     ...mapGetters('settings', ['getSettings']),
 
     //acessando diretamenteo o search
-    ...mapState('tasks', ['search'])
+    ...mapState('tasks', ['search']),
+
+    configList(){
+      //Informação que veio do store-settings
+      return this.getSettings.showTasksInOneList
+     },
+
+
   },
 
   methods: {

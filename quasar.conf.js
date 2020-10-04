@@ -94,13 +94,15 @@ module.exports = function (/* ctx */) {
 
       // Quasar plugins
       plugins: [
-        'Dialog'
+        'Dialog',
+        'LocalStorage',
+        'SessionStorage'
         ]
     },
 
     // animations: 'all', // --- includes all animations
     // https://quasar.dev/options/animations
-    animations: [],
+    animations: ['zoomIn', 'zoomOut'],
 
     // https://quasar.dev/quasar-cli/developing-ssr/configuring-ssr
     ssr: {

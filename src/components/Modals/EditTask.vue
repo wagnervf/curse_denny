@@ -21,9 +21,7 @@
 					<ModalDateAndTime 
 						:DueDate.sync="taskToSubmit.dueDate"
 						:DueTime.sync="taskToSubmit.dueTime"/>
-
     		</q-card-section>
-
 	      <q-card-actions align="right">
 	        <ModalButtons />
 	      </q-card-actions>
@@ -37,8 +35,11 @@
  import ModalTaskName from './ModalTaskName.vue'
  import ModalDateAndTime from './ModalDateAndTime.vue'
  import ModalButtons from './ModalButtons.vue'
-
- export default {
+ import mixinSubmit  from '../../mixins/mixins-submit'
+ 
+export default {
+  mixins: [mixinSubmit],
+  
   props: ['task', 'id'],
 
  	components: {
@@ -47,34 +48,34 @@
  		ModalButtons
  	},
  data () {
-  return {
-   taskToSubmit: {}
- }
+    return {
+      taskToSubmit:{}
+   }
   },
   mounted() {
-     this.taskToSubmit = Object.assign({}, this.task)
+     this.taskToSubmit = Object.assign({},  this.task)
+    //console.log(this.taskToSubmit)
   },
 
   methods: {
   	...mapActions('tasks', ['updateTask']),
 
-  	submitForm(){
-	//set autofocus onde possui validade
+ //  	submitForm(){
+	// //set autofocus onde possui validade
+	// 	this.$refs.ModalTaskName.$refs.name.validade
+	// 	let formError = this.$refs.ModalTaskName.$refs.name.hasError
+ //  		if(!formError){
+ //  			this.submitTask()
+	// 	  }
+ //  	},
 
-		this.$refs.ModalTaskName.$refs.name.validade
-		let formError = this.$refs.ModalTaskName.$refs.name.hasError
 
-  		if(!formError){
-  			this.submitTask()
-		}
-  	},
 
   	submitTask(){
   		this.updateTask({
         id: this.id,
         updates: this.taskToSubmit
       })
-
   		//enviando close para fechar o popup
   		//recebendo no componente add-task @fechando
   		this.$emit('fechando')

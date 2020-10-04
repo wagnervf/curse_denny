@@ -8,21 +8,21 @@ const state = {
 	    'ID1': {
 			name: 'All',
 			completed: false,
-			dueDate: '2019/03/12',
+			dueDate: '2019/03/12 18:30',
 			dueTime: '18:30'
 	    },
 	  	  
 	    'ID2': {
 			name: 'Read',
 			completed: true,
-			dueDate: '2019/05/05',
+			dueDate: '2019/05/05 01:30',
 			dueTime: '01:30'
 	    },
 	  	  
 	    'ID3': {
 			name: 'Eat',
 			completed: false,
-			dueDate: '2019/01/10',
+			dueDate: '2019/01/10 10:30',
 			dueTime: '10:30'
 	    }
 	 },
@@ -61,13 +61,20 @@ const mutations = {
 		state.sort = value
 	}
 
+  // ALTER_TIME_12HOURS(state){
+  // 	 state.tasks.dueTime = date.formatDate(state.tasks.dueDate + '' + this.task.dueTime, 'h:mmA')
+
+
+  	 
+  // }
+  
+
 }
 
 const actions = {
 	// Action é tulizada lá no @click e o Action Chama o Mutations que irá atualizar o states
 	updateTask({ commit }, payload){
 		commit('UPDATE_TASK', payload)
-
 	},
 
 	deleteTask({commit}, id){
@@ -120,8 +127,6 @@ const getters = {
 		return tasksSorted
 	},
 
-
-
 	//Filtrando o objeto
 	tasksFiltered: (state, getters) => {
 		let tasksSorted = getters.tasksSorted
@@ -169,7 +174,15 @@ const getters = {
 	},
 
 
+	allTasks: (state, getters) => {
+			return state.tasks
+	},
+
 	tasks: (state) => {
+		return state.tasks
+	},
+
+	getDueTime: (state) => {
 		return state.tasks
 	}
 

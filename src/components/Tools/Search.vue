@@ -1,12 +1,19 @@
 <template>
-	
+
 		 <q-input 		 
 		 v-model="searchField" 
 		 label="Pesquisar"
+		 @keyup.esc="searchField = ''"
 		 outlined
 		 class="col"
+		 v-seleciona-tudo
 		 >
-       
+		  <!-- v-seleciona-tudo -->
+    	<!-- Directives selecionar todos os dados qndo abrir input -->
+      
+      <!-- @keyup.esc="searchField = ''" -->
+      <!-- Limpar o campo após clicar em esc -->
+
         <template v-slot:append>
           <q-icon
            v-if="searchField !== ''" name="close" 
@@ -20,6 +27,7 @@
 <script>
 	// Mapeando e utilizando diretament a variável state, nesse caso não estou usando mutations ou actions por que será apenas consulta de dados
 	import { mapState, mapActions } from 'vuex'
+	import { selecionaTudo } from 'src/directives/directives-all'
 
 	export default {
 	  data () {
@@ -27,6 +35,9 @@
 	      
 	    }
 	  },
+   	directives: {
+    	selecionaTudo
+   	},
 
 	  computed: {
 	  	...mapState('tasks', ['search']),
